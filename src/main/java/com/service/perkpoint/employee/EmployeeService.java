@@ -3,8 +3,10 @@ package com.service.perkpoint.employee;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.service.perkpoint.auth.credential.CredentialService;
 import com.service.perkpoint.auth.user.PpUser;
@@ -29,12 +31,13 @@ public class EmployeeService implements ServiceLayer<PpEmployee> {
 
 	@Override
 	public PpEmployee getById(Long id) {
-		return null;
+		return repo.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Emplyee Id"));
 	}
 
 	@Override
 	public List<PpEmployee> getByIds(List<Long> ids) {
-		return null;
+		return repo.findAllById(ids);
 	}
 
 	@Transactional
@@ -57,6 +60,10 @@ public class EmployeeService implements ServiceLayer<PpEmployee> {
 
 	public List<EmployeeResponse> get() {
 		return repo.findAll().stream().map(EmployeeResponse::new).toList();
+	}
+
+	public List<PpEmployee> getAll() {
+		return repo.findAll();
 	}
 
 }

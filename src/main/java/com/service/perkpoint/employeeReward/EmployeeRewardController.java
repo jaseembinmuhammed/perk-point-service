@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.service.perkpoint.reward.RewardResponse;
+
 @RestController
 @RequestMapping("v1/employeeReward")
 @CrossOrigin("*")
@@ -29,6 +31,12 @@ public class EmployeeRewardController {
 	@GetMapping
 	public ResponseEntity<?> getEmployeeRewardDetails() {
 		List<RewardedDetailsResponse> list = service.getEmployeeRewardDetails();
+		return ResponseEntity.ok(list);
+	}
+
+	@GetMapping("myRewards")
+	public ResponseEntity<?> myRewards() {
+		List<RewardResponse> list = service.getMyRewards();
 		return ResponseEntity.ok(list);
 	}
 

@@ -50,23 +50,12 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/v1/auth/login").permitAll()
+						.requestMatchers("v1/employeeReward/myRewards").hasAnyRole("EMPLOYEE", "ADMIN").anyRequest()
+						.hasRole("ADMIN"))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
-
-//	@Bean
-//	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-//		return httpSecurity.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
-//				.authorizeHttpRequests(auth -> auth
-//						.requestMatchers("/v1/auth", "/v1/auth/login", "/v1/auth/signup", "/v1/auth/guestLogin",
-//								"/v1/auth/googLogin")
-//						.permitAll().requestMatchers(HttpMethod.GET, "/v1/story/explore", "v1/like")
-//						.hasAnyRole("GUEST", "USER").anyRequest().hasRole("USER"))
-//				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//				.authenticationProvider(authenticationProvider())
-//				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
-//	}
 
 }

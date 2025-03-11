@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.service.perkpoint.auth.AuthUtil;
+import com.service.perkpoint.auth.user.PpUser;
 import com.service.perkpoint.base.ServiceLayer;
 import com.service.perkpoint.employee.EmployeeResponse;
 import com.service.perkpoint.employee.EmployeeService;
@@ -84,6 +86,12 @@ public class EmployeeRewardService implements ServiceLayer<PpEmployeeReward> {
 
 	public void delete(PpEmployee employee) {
 		repo.deleteAllByEmployee(employee);
+	}
+
+	public List<RewardResponse> getMyRewards() {
+		PpUser user = AuthUtil.getLoggedInUser();
+		List<PpEmployeeReward> list = repo.getMyRewards(user.getId());
+		return list.stream().map(RewardResponse::new).toList();
 	}
 
 }

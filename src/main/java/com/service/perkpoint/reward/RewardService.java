@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.service.perkpoint.auth.AuthUtil;
+import com.service.perkpoint.auth.user.PpUser;
 import com.service.perkpoint.base.KeyValue;
 import com.service.perkpoint.base.ServiceLayer;
 

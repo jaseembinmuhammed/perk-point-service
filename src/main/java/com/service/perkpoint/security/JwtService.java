@@ -30,6 +30,9 @@ public class JwtService {
 	@Value("${refresh.jwt.secret}")
 	private String REFRESH_TOKEN_SECRET;
 
+	/**
+	 * Must reduce this hours to minimal once refresh token concept is introduced
+	 */
 	private static long EXPIRATION_DURATION = (1000 * 60 * 60 * 24) * 20;// 24 hours *20
 
 	private static long REFRESH_TOKEN_EXPIRATION_DURATION = 1000 * 60 * 60 * 24 * 2;// 48 hours

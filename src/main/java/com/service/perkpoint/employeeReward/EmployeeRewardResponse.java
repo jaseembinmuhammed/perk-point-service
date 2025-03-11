@@ -17,7 +17,7 @@ public class EmployeeRewardResponse {
 	private LocalDateTime rewardedOn;
 
 	public EmployeeRewardResponse(PpEmployeeReward entry) {
-		this.reward = new RewardResponse(entry.getReward());
+		this.reward = new RewardResponse(entry.getReward(),entry.getCreationDate() == null ? LocalDateTime.now() : entry.getCreationDate());
 		this.employee = new EmployeeResponse(entry.getEmployee());
 		this.rewardedOn = entry.getCreationDate() == null ? LocalDateTime.now() : entry.getCreationDate();
 	}

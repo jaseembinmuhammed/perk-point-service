@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,6 +29,13 @@ public class GlobalExceptionHandler {
 		PpException errorDetails = new PpException(new Date(), ex.getReason(), request.getDescription(false));
 		HttpStatusCode statusCode = ex.getStatusCode();
 		return new ResponseEntity<>(errorDetails, statusCode);
+	}
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<?> handleUsernameNotFoundException(BadCredentialsException ex, WebRequest request) {
+		PpException errorDetails = new PpException(new Date(), "Email or Password is Wrong",
+				request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(Exception.class)

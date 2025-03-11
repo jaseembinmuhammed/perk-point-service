@@ -14,6 +14,8 @@ public class RewardResponse {
 
 	private LocalDateTime createdAt;
 
+	private LocalDateTime rewardedTime;
+
 	public RewardResponse(PpReward e) {
 		this.id = e.getId();
 		this.name = e.getName();
@@ -22,7 +24,7 @@ public class RewardResponse {
 	public RewardResponse(PpReward e, LocalDateTime time) {
 		this.id = e.getId();
 		this.name = e.getName();
-		this.createdAt = time;
+		this.rewardedTime = time;
 	}
 
 	public Long getId() {
@@ -47,5 +49,13 @@ public class RewardResponse {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getRewardedTime() {
+		return rewardedTime;
+	}
+
+	public void setRewardedTime(LocalDateTime rewardedTime) {
+		this.rewardedTime = rewardedTime;
 	}
 }

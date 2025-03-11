@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.service.perkpoint.auth.AuthUtil;
 import com.service.perkpoint.auth.user.PpUser;
 
 import jakarta.persistence.Column;
@@ -38,7 +39,7 @@ public class AuditModel {
 
 	@PrePersist
 	void beforePersist() {
-//		this.createdBy = AuthUtil.getLoggedInUser();
+		this.createdBy = AuthUtil.getLoggedInUser();
 	}
 
 	public Long getId() {

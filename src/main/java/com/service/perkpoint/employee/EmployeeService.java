@@ -15,6 +15,8 @@ import com.service.perkpoint.auth.user.UserType;
 import com.service.perkpoint.base.ServiceLayer;
 import com.service.perkpoint.employeeReward.EmployeeRewardService;
 
+import jakarta.validation.Valid;
+
 @Service
 public class EmployeeService implements ServiceLayer<PpEmployee> {
 
@@ -76,6 +78,17 @@ public class EmployeeService implements ServiceLayer<PpEmployee> {
 		credentialService.delete(employee);
 		employeeRewardService.delete(employee);
 		repo.delete(employee);
+	}
+
+	@Transactional
+	public EmployeeResponse update(@Valid UpdateEmployeeRequest request) {
+		PpEmployee employee = getById(request.getId());
+		userService.update(employee, request);
+
+		employee.setDepartment(request.getDepartment());
+		employee = repo.save(employee);
+
+		return new EmployeeResponse(employee);
 	}
 
 }

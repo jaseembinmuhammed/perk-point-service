@@ -13,6 +13,9 @@ import com.service.perkpoint.auth.role.RoleSet;
 import com.service.perkpoint.base.ServiceLayer;
 import com.service.perkpoint.employee.NewEmployeeRequest;
 import com.service.perkpoint.employee.PpEmployee;
+import com.service.perkpoint.employee.UpdateEmployeeRequest;
+
+import jakarta.validation.Valid;
 
 @Service
 public class UserService implements ServiceLayer<PpUser> {
@@ -48,6 +51,12 @@ public class UserService implements ServiceLayer<PpUser> {
 
 	public void delete(PpEmployee employee) {
 		repo.deleteById(employee.getUser().getId());
+	}
+
+	public PpUser update(PpEmployee employee, @Valid UpdateEmployeeRequest request) {
+		PpUser user = employee.getUser();
+		user.setName(request.getName());
+		return repo.save(user);
 	}
 
 }

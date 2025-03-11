@@ -16,15 +16,20 @@ public class RewardResponse {
 
 	private LocalDateTime rewardedTime;
 
+	private Boolean rewarded;
+
 	public RewardResponse(PpReward e) {
 		this.id = e.getId();
 		this.name = e.getName();
+		this.createdAt = e.getCreationDate() != null ? e.getCreationDate() : LocalDateTime.now();
+		this.rewarded = e.getRewarded();
 	}
 
 	public RewardResponse(PpReward e, LocalDateTime time) {
 		this.id = e.getId();
 		this.name = e.getName();
 		this.rewardedTime = time;
+		this.rewarded = e.getRewarded();
 	}
 
 	public Long getId() {
@@ -57,5 +62,13 @@ public class RewardResponse {
 
 	public void setRewardedTime(LocalDateTime rewardedTime) {
 		this.rewardedTime = rewardedTime;
+	}
+
+	public Boolean getRewarded() {
+		return rewarded;
+	}
+
+	public void setRewarded(Boolean rewarded) {
+		this.rewarded = rewarded;
 	}
 }

@@ -11,12 +11,22 @@ public class PpReward extends AuditModel {
 	@Column(nullable = false, unique = true)
 	private String name;
 
+	private Boolean rewarded = false;
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Boolean getRewarded() {
+		return rewarded;
+	}
+
+	public void setRewarded(Boolean rewarded) {
+		this.rewarded = rewarded;
 	}
 
 }

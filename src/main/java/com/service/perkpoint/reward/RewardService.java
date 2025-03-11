@@ -46,8 +46,30 @@ public class RewardService implements ServiceLayer<PpReward> {
 		return repo.save(reward);
 	}
 
-	public List<KeyValue> getAll() {
+	public List<RewardResponse> getAll() {
+		return repo.findAll().stream().map(RewardResponse::new).toList();
+	}
+
+	public List<KeyValue> getKeyValues() {
 		return repo.findAll().stream().map(KeyValue::new).toList();
+	}
+
+	@Transactional
+	public void delete(Long rewardId) {
+		validator.validateDelete(rewardId);
+		repo.deleteById(rewardId);
+	}
+
+	public void updateOnAssignment(PpReward reward) {
+		reward.setRewarded(true);
+		repo.save(reward);
+	}
+
+	public RewardResponse update(@Valid UpdateRewardRequest request) {
+		PpReward reward = getById(request.getId());
+		reward.setName(request.getName());
+		reward = repo.save(reward);
+		return new RewardResponse(reward);
 	}
 
 }

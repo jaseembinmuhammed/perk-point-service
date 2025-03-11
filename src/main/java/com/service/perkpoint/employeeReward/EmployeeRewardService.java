@@ -42,6 +42,7 @@ public class EmployeeRewardService implements ServiceLayer<PpEmployeeReward> {
 	@Transactional
 	public EmployeeRewardResponse assignAward(AssignAwardRequest request) {
 		PpEmployeeReward reward = generateEntity(request);
+		rewardService.updateOnAssignment(reward.getReward());
 		return new EmployeeRewardResponse(reward);
 	}
 

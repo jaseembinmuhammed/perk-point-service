@@ -8,4 +8,6 @@ public interface EmployeeAwardRepository extends JpaRepository<PpEmployeeReward,
 
 	void deleteAllByEmployee(PpEmployee employee);
 
+	boolean existsByRewardId(Long rewardId);
+
 }

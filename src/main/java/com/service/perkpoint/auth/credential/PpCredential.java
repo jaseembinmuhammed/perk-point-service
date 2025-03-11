@@ -3,6 +3,7 @@ package com.service.perkpoint.auth.credential;
 import com.service.perkpoint.auth.user.PpUser;
 import com.service.perkpoint.base.AuditModel;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -16,7 +17,7 @@ public class PpCredential extends AuditModel {
 	@Column(columnDefinition = "text")
 	private String password;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private PpUser user;
 
 	public String getMail() {

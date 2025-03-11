@@ -13,6 +13,7 @@ import com.service.perkpoint.auth.user.PpUser;
 import com.service.perkpoint.auth.user.UserService;
 import com.service.perkpoint.auth.user.UserType;
 import com.service.perkpoint.base.ServiceLayer;
+import com.service.perkpoint.employeeReward.EmployeeRewardService;
 
 @Service
 public class EmployeeService implements ServiceLayer<PpEmployee> {
@@ -28,6 +29,9 @@ public class EmployeeService implements ServiceLayer<PpEmployee> {
 
 	@Autowired
 	EmployeeValidator validator;
+
+	@Autowired
+	EmployeeRewardService employeeRewardService;
 
 	@Override
 	public PpEmployee getById(Long id) {
@@ -64,6 +68,14 @@ public class EmployeeService implements ServiceLayer<PpEmployee> {
 
 	public List<PpEmployee> getAll() {
 		return repo.findAll();
+	}
+
+	@Transactional
+	public void delete(Long employeeId) {
+		PpEmployee employee = getById(employeeId);
+		credentialService.delete(employee);
+		employeeRewardService.delete(employee);
+		repo.delete(employee);
 	}
 
 }

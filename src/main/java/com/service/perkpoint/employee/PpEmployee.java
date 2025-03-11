@@ -3,6 +3,7 @@ package com.service.perkpoint.employee;
 import com.service.perkpoint.auth.user.PpUser;
 import com.service.perkpoint.base.AuditModel;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -10,7 +11,7 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class PpEmployee extends AuditModel {
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private PpUser user;
 
 	@Column(columnDefinition = "text")

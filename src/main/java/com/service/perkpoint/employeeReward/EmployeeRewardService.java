@@ -81,4 +81,8 @@ public class EmployeeRewardService implements ServiceLayer<PpEmployeeReward> {
 		return response;
 	}
 
+	public void delete(PpEmployee employee) {
+		repo.deleteAllByEmployee(employee);
+	}
+
 }

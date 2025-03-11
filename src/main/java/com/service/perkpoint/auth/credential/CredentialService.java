@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.service.perkpoint.auth.user.PpUser;
 import com.service.perkpoint.base.ServiceLayer;
 import com.service.perkpoint.employee.NewEmployeeRequest;
+import com.service.perkpoint.employee.PpEmployee;
 
 @Service
 public class CredentialService implements ServiceLayer<PpCredential> {
@@ -35,6 +36,10 @@ public class CredentialService implements ServiceLayer<PpCredential> {
 		credential.setUser(user);
 		credential.setPassword(passwordEncoder.encode(request.getPassword()));
 		return repo.save(credential);
+	}
+
+	public void delete(PpEmployee employee) {
+		repo.deleteByUser(employee.getUser());
 	}
 
 }

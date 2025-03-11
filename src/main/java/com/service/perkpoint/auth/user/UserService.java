@@ -12,6 +12,7 @@ import com.service.perkpoint.auth.role.RoleService;
 import com.service.perkpoint.auth.role.RoleSet;
 import com.service.perkpoint.base.ServiceLayer;
 import com.service.perkpoint.employee.NewEmployeeRequest;
+import com.service.perkpoint.employee.PpEmployee;
 
 @Service
 public class UserService implements ServiceLayer<PpUser> {
@@ -43,6 +44,10 @@ public class UserService implements ServiceLayer<PpUser> {
 		user.setMail(request.getMail());
 
 		return repo.save(user);
+	}
+
+	public void delete(PpEmployee employee) {
+		repo.deleteById(employee.getUser().getId());
 	}
 
 }

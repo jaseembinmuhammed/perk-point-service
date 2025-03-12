@@ -23,19 +23,19 @@ public class EmployeeRewardController {
 	EmployeeRewardService service;
 
 	@PostMapping
-	public ResponseEntity<?> assignAward(@RequestBody AssignAwardRequest request) {
+	public ResponseEntity<EmployeeRewardResponse> assignAward(@RequestBody AssignAwardRequest request) {
 		EmployeeRewardResponse reponse = service.assignAward(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body(reponse);
 	}
 
 	@GetMapping
-	public ResponseEntity<?> getEmployeeRewardDetails() {
+	public ResponseEntity<List<RewardedDetailsResponse>> getEmployeeRewardDetails() {
 		List<RewardedDetailsResponse> list = service.getEmployeeRewardDetails();
 		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping("myRewards")
-	public ResponseEntity<?> myRewards() {
+	public ResponseEntity<List<RewardResponse>> myRewards() {
 		List<RewardResponse> list = service.getMyRewards();
 		return ResponseEntity.ok(list);
 	}

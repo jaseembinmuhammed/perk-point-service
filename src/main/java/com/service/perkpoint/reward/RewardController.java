@@ -40,13 +40,13 @@ public class RewardController {
 	}
 
 	@GetMapping
-	public ResponseEntity<?> getAll() {
+	public ResponseEntity<List<RewardResponse>> getAll() {
 		List<RewardResponse> list = service.getAll();
 		return ResponseEntity.ok(list);
 	}
 
 	@GetMapping("keyValues")
-	public ResponseEntity<?> getKeyValues() {
+	public ResponseEntity<List<KeyValue>> getKeyValues() {
 		List<KeyValue> list = service.getKeyValues();
 		return ResponseEntity.ok(list);
 	}

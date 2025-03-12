@@ -50,12 +50,22 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/v1/auth/login").permitAll()
-						.requestMatchers("v1/employeeReward/myRewards").hasAnyRole("EMPLOYEE", "ADMIN").anyRequest()
-						.hasRole("ADMIN"))
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/v1/auth/login", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**")
+						.permitAll().requestMatchers("v1/employeeReward/myRewards").hasAnyRole("EMPLOYEE", "ADMIN")
+						.anyRequest().hasRole("ADMIN"))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
 	}
+
+//	@Bean
+//	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//		return httpSecurity.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
+//				.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+//				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//				.authenticationProvider(authenticationProvider())
+//				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
+//	}
 
 }
